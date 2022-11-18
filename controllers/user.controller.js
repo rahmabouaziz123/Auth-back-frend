@@ -1,17 +1,19 @@
+
 const User=require("../model/user");
+
 let bc = require('bcryptjs');
 let jwt = require('jsonwebtoken');
 const config=require("config");
 const secret=config.get("secret");
 
 exports.signUp=async(req,res)=>{
-    const {fullName,email,password,adresse}=req.body;
+    const {fullName,email,password,adresse,userRole,telephone}=req.body;
     try{
         //verfier existing user avec email
         const exsitingUser= await User.findOne({email});
         if(exsitingUser){res.status(401).json({msg:"User is allready exist "})}
         //ADD NEW USER
-        const newUser= new User({fullName,email,password,adresse})
+        const newUser= new User({fullName,email,password,adresse,userRole,telephone})
         // cryptage password
         var salt = await bc.genSalt(10);
         var hash = await bc.hashSync(password, salt);
@@ -23,8 +25,11 @@ exports.signUp=async(req,res)=>{
             name:newUser.fullName,
             email:newUser.email,
             adresse:newUser.adresse,
+            telephone:newUser.telephone
+
         };
         const token = jwt.sign(payload,secret);
+        //// data qui affiche dans action.js se trouve dans res.send
         res.status(200).send({
             token,
             user:{
@@ -32,7 +37,11 @@ exports.signUp=async(req,res)=>{
             fullName: newUser.fullName,
             email: newUser.email,
             password: newUser.password,
-            adresse: newUser.adresse},
+            adresse: newUser.adresse,
+            userRole:newUser.userRole,
+            telephone:newUser.telephone
+
+        },
           });
         // res.send(newUser)
     }catch(error){
@@ -63,7 +72,10 @@ exports.LogIn=async(req,res)=>{
             fullName: user.fullName,
             email: user.email,
             password: user.password,
-            adresse: user.adresse},
+            adresse: user.adresse,
+            userRole:user.userRole,
+            telephone:user.telephone
+        },
           });
      
     } catch (error) {

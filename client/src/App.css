@@ -2,6 +2,7 @@
   text-align: center;
 }
 
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -36,3 +37,44 @@
     transform: rotate(360deg);
   }
 }
+
+.loginform{
+
+ width: 35%;
+ margin-left: 40%;
+ margin-top: 2%;
+ 
+}
+
+.btnsing{
+  margin-right: 1%;
+}
+.btndiv1{
+  margin-top: 6%;
+}
+
+.label{
+  /* margin-left: -180px!important; */
+}
+
+
+.x{
+  /* margin-top: 2% !important; */
+  display: flex;
+  justify-content: space-between!important;
+  margin-top: 50px!important;
+}
+
+  
+  .btnsubmit1{
+    margin-right: 19px;
+    margin-left: 30px;
+  }
+
+  .btnlogin1{
+    margin-left: 30%!important;
+  }
+
+  .divProfile{
+    
+  }
